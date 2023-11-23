@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=3 uid="uid://bb08l4bq0msd"]
+
+[ext_resource type="Script" path="res://player.gd" id="1_c2607"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_ahy3q"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7k64h"]
+albedo_color = Color(0.454902, 0, 1, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_npif6"]
+
+[node name="Player" type="CharacterBody3D"]
+collision_layer = 2
+collision_mask = 5
+script = ExtResource("1_c2607")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_ahy3q")
+surface_material_override/0 = SubResource("StandardMaterial3D_7k64h")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_npif6")
+
+[node name="PressButtonTimer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="PressButtonTimer" to="." method="_on_timer_timeout"]

@@ -1,0 +1,72 @@
+[gd_scene load_steps=9 format=3 uid="uid://bkjpo4yv65npm"]
+
+[ext_resource type="Script" path="res://world.gd" id="1_0x24o"]
+[ext_resource type="PackedScene" uid="uid://bb08l4bq0msd" path="res://player.tscn" id="1_m0egg"]
+[ext_resource type="PackedScene" uid="uid://bwl2ugr11e67m" path="res://pattern_button.tscn" id="2_0svxk"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_n6g2d"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_rol2k"]
+sky_material = SubResource("ProceduralSkyMaterial_n6g2d")
+
+[sub_resource type="Environment" id="Environment_8qvek"]
+background_mode = 2
+sky = SubResource("Sky_rol2k")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_evwy6"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_r8qd3"]
+size = Vector3(2, 0.5, 2)
+
+[node name="World" type="Node3D"]
+script = ExtResource("1_0x24o")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_8qvek")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
+shadow_enabled = true
+
+[node name="Floor" type="StaticBody3D" parent="."]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 0, 0)
+collision_mask = 0
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("PlaneMesh_evwy6")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
+shape = SubResource("BoxShape3D_r8qd3")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 3, 4)
+
+[node name="Buttons" type="Node3D" parent="."]
+
+[node name="RedPatternButton" parent="Buttons" instance=ExtResource("2_0svxk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -2)
+albedo_color = Color(1, 0, 0, 1)
+color_name = "red"
+
+[node name="BluePatternButton" parent="Buttons" instance=ExtResource("2_0svxk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 2)
+albedo_color = Color(0, 0, 1, 1)
+color_name = "blue"
+
+[node name="GreenPatternButton" parent="Buttons" instance=ExtResource("2_0svxk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, -2)
+albedo_color = Color(0, 1, 0, 1)
+color_name = "green"
+
+[node name="YellowPatternButton" parent="Buttons" instance=ExtResource("2_0svxk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 2)
+albedo_color = Color(1, 1, 0, 1)
+color_name = "yellow"
+
+[node name="Player" parent="." instance=ExtResource("1_m0egg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.959606, 0)
