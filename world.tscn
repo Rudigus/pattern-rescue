@@ -1,8 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://bkjpo4yv65npm"]
+[gd_scene load_steps=12 format=3 uid="uid://bkjpo4yv65npm"]
 
 [ext_resource type="Script" path="res://world.gd" id="1_0x24o"]
 [ext_resource type="PackedScene" uid="uid://bb08l4bq0msd" path="res://player.tscn" id="1_m0egg"]
 [ext_resource type="PackedScene" uid="uid://bwl2ugr11e67m" path="res://pattern_button.tscn" id="2_0svxk"]
+[ext_resource type="PackedScene" uid="uid://csadgku10wa5k" path="res://pattern_manager.tscn" id="4_k7jol"]
+[ext_resource type="PackedScene" uid="uid://vxt20kts1g50" path="res://lost_game_panel.tscn" id="5_gry0f"]
+[ext_resource type="PackedScene" uid="uid://0vbanpishbt2" path="res://won_game_panel.tscn" id="6_f02nu"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_n6g2d"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -70,3 +73,19 @@ color_name = "yellow"
 
 [node name="Player" parent="." instance=ExtResource("1_m0egg")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.959606, 0)
+
+[node name="PatternManager" parent="." instance=ExtResource("4_k7jol")]
+
+[node name="LostGamePanel" parent="." instance=ExtResource("5_gry0f")]
+visible = false
+
+[node name="WonGamePanel" parent="." instance=ExtResource("6_f02nu")]
+visible = false
+
+[connection signal="game_lost" from="PatternManager" to="." method="_on_pattern_manager_game_lost"]
+[connection signal="game_lost" from="PatternManager" to="Player" method="_on_pattern_manager_game_lost"]
+[connection signal="game_won" from="PatternManager" to="." method="_on_pattern_manager_game_won"]
+[connection signal="game_won" from="PatternManager" to="Player" method="_on_pattern_manager_game_won"]
+[connection signal="helper_should_jump" from="PatternManager" to="." method="_on_pattern_manager_helper_should_jump"]
+[connection signal="should_replay" from="PatternManager" to="." method="_on_pattern_manager_should_replay"]
+[connection signal="should_spawn_helper" from="PatternManager" to="." method="spawn_helper"]

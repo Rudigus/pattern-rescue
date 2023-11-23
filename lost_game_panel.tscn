@@ -1,0 +1,37 @@
+[gd_scene load_steps=2 format=3 uid="uid://vxt20kts1g50"]
+
+[ext_resource type="Script" path="res://lost_game_panel.gd" id="1_dg5d2"]
+
+[node name="LostGamePanel" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_dg5d2")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="PanelContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/CenterContainer"]
+layout_mode = 2
+theme_override_constants/separation = 50
+
+[node name="LostGameLabel" type="Label" parent="PanelContainer/CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "Você perdeu"
+
+[node name="RestartButton" type="Button" parent="PanelContainer/CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "Reiniciar"
+
+[connection signal="pressed" from="PanelContainer/CenterContainer/VBoxContainer/RestartButton" to="." method="_on_restart_button_pressed"]

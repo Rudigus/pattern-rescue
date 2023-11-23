@@ -1,19 +1,23 @@
+class_name Helper
 extends CharacterBody3D
 
 signal button_pressed(color)
 
 const SPEED = 5.0
 const JUMP_VELOCITY = 4.5
-const PATTERN_BUTTON_SUFFIX = "PatternButton"
 
 @onready var press_button_timer = $PressButtonTimer
-@onready var mesh_instance = $MeshInstance
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
+var should_jump = false
 var can_press_button = true
 var is_jumping = false
-var input_enabled = true
+var assigned_color: PatternManager.PatternColor
+
+func jump():
+	await get_tree().create_timer(1).timeout
+	should_jump = true
 
 func _physics_process(delta):
 	# Add the gravity.
@@ -23,15 +27,14 @@ func _physics_process(delta):
 		is_jumping = false
 
 	# Handle Jump.
-	if Input.is_action_just_pressed("ui_accept") and is_on_floor() and input_enabled:
+	if should_jump and is_on_floor():
 		velocity.y = JUMP_VELOCITY
+		should_jump = false
 		is_jumping = true
 
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
 	var input_dir = Vector3.ZERO
-	if input_enabled:
-		input_dir = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
 	var direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	if direction:
 		velocity.x = direction.x * SPEED
@@ -52,11 +55,5 @@ func handle_collisions():
 			can_press_button = false
 			press_button_timer.start()
 
-func _on_timer_timeout():
+func _on_press_button_timer_timeout():
 	can_press_button = true
-
-func _on_pattern_manager_game_lost():
-	input_enabled = false
-
-func _on_pattern_manager_game_won():
-	input_enabled = false
