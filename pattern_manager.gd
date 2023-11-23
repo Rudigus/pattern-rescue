@@ -35,6 +35,9 @@ func replay():
 
 func replay_finished():
 	is_on_replay = false
+	var first_color = color_pattern[0]
+	if first_color in helped_colors:
+		helper_should_jump.emit(first_color)
 
 func check():
 	var last_element_index = pattern_attempt.size() - 1
@@ -45,7 +48,8 @@ func check():
 			if next_color in helped_colors:
 				helper_should_jump.emit(next_color)
 		if pattern_attempt.size() == color_pattern.size():
-			if pattern_attempt.size() % 2 == 0:
+			var attemp_size = pattern_attempt.size()
+			if attemp_size == 4 or attemp_size > 4 && attemp_size % 2 == 0:
 				add_helper()
 				if helped_colors.size() == 4:
 					game_won.emit()
