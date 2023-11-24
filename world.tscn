@@ -1,10 +1,14 @@
-[gd_scene load_steps=12 format=3 uid="uid://bkjpo4yv65npm"]
+[gd_scene load_steps=16 format=3 uid="uid://bkjpo4yv65npm"]
 
 [ext_resource type="Script" path="res://world.gd" id="1_0x24o"]
 [ext_resource type="PackedScene" uid="uid://bb08l4bq0msd" path="res://player.tscn" id="1_m0egg"]
 [ext_resource type="PackedScene" uid="uid://bwl2ugr11e67m" path="res://pattern_button.tscn" id="2_0svxk"]
+[ext_resource type="AudioStream" uid="uid://dq0apaygpl7gv" path="res://sounds/red_button_press.wav" id="3_ts8ui"]
 [ext_resource type="PackedScene" uid="uid://csadgku10wa5k" path="res://pattern_manager.tscn" id="4_k7jol"]
+[ext_resource type="AudioStream" uid="uid://cran8uexeis46" path="res://sounds/blue_button_press.wav" id="4_nmqcf"]
 [ext_resource type="PackedScene" uid="uid://vxt20kts1g50" path="res://lost_game_panel.tscn" id="5_gry0f"]
+[ext_resource type="AudioStream" uid="uid://cuedhbmo73s78" path="res://sounds/green_button_press.wav" id="5_pq5qo"]
+[ext_resource type="AudioStream" uid="uid://beqf8bglbuyt4" path="res://sounds/yellow_button_press.wav" id="6_5fedu"]
 [ext_resource type="PackedScene" uid="uid://0vbanpishbt2" path="res://won_game_panel.tscn" id="6_f02nu"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_n6g2d"]
@@ -55,21 +59,25 @@ transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -2)
 albedo_color = Color(1, 0, 0, 1)
 color_name = "red"
+press_sound = ExtResource("3_ts8ui")
 
 [node name="BluePatternButton" parent="Buttons" instance=ExtResource("2_0svxk")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 2)
 albedo_color = Color(0, 0, 1, 1)
 color_name = "blue"
+press_sound = ExtResource("4_nmqcf")
 
 [node name="GreenPatternButton" parent="Buttons" instance=ExtResource("2_0svxk")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, -2)
 albedo_color = Color(0, 1, 0, 1)
 color_name = "green"
+press_sound = ExtResource("5_pq5qo")
 
 [node name="YellowPatternButton" parent="Buttons" instance=ExtResource("2_0svxk")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 2)
 albedo_color = Color(1, 1, 0, 1)
 color_name = "yellow"
+press_sound = ExtResource("6_5fedu")
 
 [node name="Player" parent="." instance=ExtResource("1_m0egg")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.959606, 0)

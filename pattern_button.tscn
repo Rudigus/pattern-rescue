@@ -22,3 +22,5 @@ surface_material_override/0 = SubResource("StandardMaterial3D_p7dci")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CylinderShape3D_ioyxd")
+
+[node name="AudioPlayer" type="AudioStreamPlayer" parent="."]

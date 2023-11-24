@@ -43,7 +43,7 @@ func _on_pattern_manager_should_replay():
 	var pattern = pattern_manager.color_pattern
 	for color in pattern:
 		var button = find_button(color)
-		button.animate_pressed()
+		button.press()
 		await get_tree().create_timer(1).timeout
 	pattern_manager.replay_finished()
 	player.mesh_instance.get_surface_override_material(0).albedo_color = Color("7400ff")
